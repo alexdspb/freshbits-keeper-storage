@@ -1,0 +1,2 @@
+# freshbits-keeper-storage
+
