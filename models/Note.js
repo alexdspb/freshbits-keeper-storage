@@ -11,6 +11,10 @@ const NoteSchema = new mongoose.Schema({
         required: [true, 'Please add body field'],
         trim: true
     },
+    notebook_id: {
+        type: String,
+        required: [true, 'Please add notebook_id field'],
+    },
     uid: {
         type: String,
         required: [true, 'Please add uid field'],
