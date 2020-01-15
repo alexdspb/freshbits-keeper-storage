@@ -5,9 +5,15 @@ const Note = require('../models/Note');
 // @access Public
 exports.getNotes = async (req, res, next) => {
     try {
+        // find documents
         const notes = await Note.find();
 
-        return res.status(200).json(notes);
+        // convert their _id to id and return
+        return res.status(200).json(notes.map(item => ({
+            ...item._doc,
+            id: item._doc._id,
+            _id: undefined
+        })));
     } catch (e) {
         console.error(e);
         return res.status(500).json({error: e});
@@ -21,7 +27,7 @@ exports.postNote = async (req, res, next) => {
     try {
         const created = await Note.create(req.body);
 
-        return res.status(200).json(created);
+        return res.status(200).json({...created._doc, id: created._doc._id, _id: undefined});
     } catch (e) {
         console.error(e);
 
@@ -44,7 +50,9 @@ exports.putNote = async (req, res, next) => {
             return res.status(404).json(null);
         }
 
-        return res.status(200).json(outdated);
+        const actual = await Notebook.findById(req.params.id);
+
+        return res.status(200).json({...actual._doc, id: actual._doc._id, _id: undefined});
     } catch (e) {
         console.error(e);
 
@@ -67,7 +75,7 @@ exports.deleteNote = async (req, res, next) => {
             return res.status(404).json(null);
         }
 
-        return res.status(200).json(deleted);
+        return res.status(200).json({...deleted._doc, id: deleted._doc._id, _id: undefined});
     } catch (e) {
         console.error(e);
 
