@@ -50,7 +50,7 @@ exports.putNote = async (req, res, next) => {
             return res.status(404).json(null);
         }
 
-        const actual = await Notebook.findById(req.params.id);
+        const actual = await Note.findById(req.params.id);
 
         return res.status(200).json({...actual._doc, id: actual._doc._id, _id: undefined});
     } catch (e) {
