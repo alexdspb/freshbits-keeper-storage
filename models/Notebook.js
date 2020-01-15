@@ -7,7 +7,7 @@ const NotebookSchema = new mongoose.Schema({
         trim: true
     },
     uid: {
-        type: Number,
+        type: String,
         required: [true, 'Please add uid field'],
     },
     createdAt: {
